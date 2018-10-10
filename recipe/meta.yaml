@@ -1,4 +1,4 @@
-{% set version = '0.1.9' %}
+{% set version = '0.3.1' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -10,45 +10,57 @@ package:
 source:
   fn: blockmodeling_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/blockmodeling_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/blockmodeling/blockmodeling_{{ version }}.tar.gz
-  sha256: c93a74d439de861fc7a1c484dc0cc983a7330904f1cdef15a03ee1b2b98ba8e5
+    - {{ cran_mirror }}/src/contrib/blockmodeling_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/blockmodeling/blockmodeling_{{ version }}.tar.gz
+  sha256: 39e8360400cec6baa920d5589d4e779568bdf2954f7331be0e3cadf22a217d31
 
 build:
   merge_build_host: True  # [win]
-  number: 2
-  skip: true  # [win32]
-
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
+# Suggests: sna
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('fortran') }}        # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('fortran') }}  # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
   host:
     - r-base
+    - r-matrix
+    - r-doparallel
+    - r-dorng
+    - r-foreach
 
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
+    - r-matrix
+    - r-doparallel
+    - r-dorng
+    - r-foreach
 
 test:
   commands:
-    - $R -e "library('blockmodeling')"  # [not win]
+    - $R -e "library('blockmodeling')"           # [not win]
     - "\"%R%\" -e \"library('blockmodeling')\""  # [win]
 
 about:
   home: https://CRAN.R-project.org/package=blockmodeling
-  license: GPL-2 | GPL-3
-  summary: This is primarily meant as an implementation of Generalized blockmodeling for valued
+  license: GPL (>= 2)
+  summary: "This is primarily meant as an implementation of generalized blockmodeling for valued
     networks. In addition, measures of similarity or dissimilarity based on structural
-    equivalence and regular equivalence (REGE algorithm) can be computed and partitioned
-    matrices can be plotted. This is a CRAN version. A newer version is available on
-    R-forge, which for however lacks help files.
+    equivalence and  regular equivalence (REGE algorithms) can be computed and partitioned
+    matrices can be plotted: \u017Diberna (2007)<doi:10.1016/j.socnet.2006.04.002>,
+    \u017Diberna (2008)<doi:10.1080/00222500701790207>, \u017Diberna (2014)<doi:10.1016/j.socnet.2014.04.002>."
   license_family: GPL3
 
 extra:
