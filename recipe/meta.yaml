@@ -32,12 +32,14 @@ requirements:
     - {{posix}}sed               # [win]
     - {{posix}}coreutils         # [win]
     - {{posix}}zip               # [win]
+
   host:
     - r-base
     - r-matrix
     - r-doparallel
     - r-dorng
     - r-foreach
+
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
