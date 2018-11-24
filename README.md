@@ -3,11 +3,11 @@ About r-blockmodeling
 
 Home: https://CRAN.R-project.org/package=blockmodeling
 
-Package license: GPL-2 | GPL-3
+Package license: GPL (>= 2)
 
 Feedstock license: BSD 3-Clause
 
-Summary: This is primarily meant as an implementation of Generalized blockmodeling for valued networks. In addition, measures of similarity or dissimilarity based on structural equivalence and regular equivalence (REGE algorithm) can be computed and partitioned matrices can be plotted. This is a CRAN version. A newer version is available on R-forge, which for however lacks help files.
+Summary: This is primarily meant as an implementation of generalized blockmodeling for valued networks. In addition, measures of similarity or dissimilarity based on structural equivalence and  regular equivalence (REGE algorithms) can be computed and partitioned matrices can be plotted: Žiberna (2007)<doi:10.1016/j.socnet.2006.04.002>, Žiberna (2008)<doi:10.1080/00222500701790207>, Žiberna (2014)<doi:10.1016/j.socnet.2014.04.002>.
 
 
 
