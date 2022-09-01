@@ -1,4 +1,4 @@
-{% set version = "1.0.5" %}
+{% set version = "1.1.3" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/blockmodeling_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/blockmodeling/blockmodeling_{{ version }}.tar.gz
-  sha256: 18c227bb52f28aff4dae8929563474e3e006e238438c823b67dc6baa897f88ed
+  sha256: 5f705f92c9b96dcbdd6f109c6a99f88d70c576485369700b82391b6a75afbda6
 
 build:
   merge_build_host: true  # [win]
