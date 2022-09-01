@@ -21,28 +21,23 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
-    - {{ compiler('m2w64_fortran') }}        # [win]
+    - {{ compiler('fortran') }}        # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}make
     - {{ posix }}sed               # [win]
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
     - r-matrix
-    - r-doparallel
-    - r-dorng
-    - r-foreach
   run:
     - r-base
     - {{ native }}gcc-libs         # [win]
     - r-matrix
-    - r-doparallel
-    - r-dorng
-    - r-foreach
 
 test:
   commands:
@@ -51,11 +46,12 @@ test:
 
 about:
   home: https://CRAN.R-project.org/package=blockmodeling
-  license: GPL (>= 2
+  license: GPL-2.0-or-later
   summary: 'This is primarily meant as an implementation of generalized blockmodeling for valued networks. In addition, measures of similarity or dissimilarity based on structural equivalence and  regular equivalence (REGE algorithms) can be computed and partitioned matrices can be plotted: Žiberna (2007)<doi:10.1016/j.socnet.2006.04.002>,
     Žiberna (2008)<doi:10.1080/00222500701790207>, Žiberna (2014)<doi:10.1016/j.socnet.2014.04.002>.'
   license_family: GPL3
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
